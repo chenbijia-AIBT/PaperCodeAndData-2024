@@ -1,0 +1,16 @@
+############
+bedtools getfasta -fi ./reference/genome/hg19/hg19.fa -bed ./1_peak_data/HCT116_3_peaks.narrowPeak -fo ./2_peak.fa/HCT116_peak.fa
+
+#############
+fimo --oc ./3_scan --thresh 1e-5 --no-qvalue ./cisbp.human.motif.txt ./2_peak.fa/HCT116_peak.fa
+
+##############
+python dfDropCol.py
+
+#############
+perl d-motif_combine-TFfamily.pl 
+perl e-tfpos_combine.pl
+perl f1-tf_bed-new-c.pl
+perl f2-delete-overlap.pl
+
+
